@@ -2,8 +2,8 @@
 
 require_relative 'lib/cal_month'
 
-month = ARGV[0]
-year = ARGV[1]
+month = ARGV[0].to_i
+year = ARGV[1].to_i
 
 #Checks for invalid input
 if ARGV.empty? || ARGV[0].to_s.length > 2 || ARGV[0].match(/\d+/).to_s != ARGV[0].chomp.to_s ||

@@ -56,13 +56,13 @@ EOS
 
 	def test_translate_month_july
 		m = Month.new(07,2012)
-		expected = "     July"
+		expected = "July"
 		assert_equal expected, m.translate_month
 	end
 
 	def test_translate_month_jan
 		m = Month.new(01,2012)
-		expected = "    January"
+		expected = "January"
 		assert_equal expected, m.translate_month
 	end
 
@@ -93,19 +93,19 @@ EOS
 	def test_find_leading_spaces_sept_1999
 		m = Month.new(9,1999)
 		expected = "          "
-		assert_equal expected, m.find_opening_spaces[0]
+		assert_equal expected, m.find_opening_spaces_and_break_point[0]
 	end
 
 	def test_find_leading_spaces_jan_2012
 		m = Month.new(1,2012)
 		expected = " "
-		assert_equal expected, m.find_opening_spaces[0]
+		assert_equal expected, m.find_opening_spaces_and_break_point[0]
 	end
 
 	def test_find_break_point_sept_1900
 		m = Month.new(9,1900)
 		expected = 1
-		assert_equal expected, m.find_opening_spaces[1]
+		assert_equal expected, m.find_opening_spaces_and_break_point[1]
 	end
 
 	def test_create_date_numbers_string_oct_1850
