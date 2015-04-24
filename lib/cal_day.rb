@@ -1,7 +1,7 @@
 
 #This class utilizes Zeller's Congruence to find the day of the week
 #<https://en.wikipedia.org/wiki/Zeller's_congruence>
-# h = (q + ((13*(m+1))/5) + K + (K/4) + (J/4) + 5J) % 7
+# h = (q + ((13*(m+1))/5) + K + (K/4) + (J/4) + 5*J) % 7
 # h is the day of the week (0=Saturday...6=Friday)
 # q is the day of the month
 # m is the month (3 = March...14=February)
@@ -28,20 +28,24 @@ class Day
 		@year = year.to_i
 	end
 
-	def get_month_formula_number(month)
-		num = 0
+	def get_month_year_formula_number
+		m = 0
+		y = 0
 		if month < 3
-			num = month+12
-		else num = month
+			m = month+12
+			y = year-1
+		else
+			m = month
+			y = year
 		end
-		num
+		[m,y]
 	end
 
 	def to_s
 		q = day
-		m = get_month_formula_number(month)
-		k = year % 100
-		j = year.to_s[0,2].to_i
+		m = get_month_year_formula_number[0]
+		k = get_month_year_formula_number[1] % 100
+		j = get_month_year_formula_number[1].to_s[0,2].to_i
 		day_digit = (q + ((13*(m+1))/5) + k + (k/4) + (j/4) + 5*j) % 7
 		return $day_number_key[day_digit]
 	end

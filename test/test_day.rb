@@ -15,6 +15,42 @@ class TestDay < Minitest::Test
 		assert_equal expected,m.to_s
 	end
 
+	def test_day_to_s_for_jan_01_2012
+		m = Day.new(01,01,2012)
+		expected = 'Su'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_jan_01_2013
+		m = Day.new(01,01,2013)
+		expected = 'Tu'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_jan_01_2015
+		m = Day.new(01,01,2015)
+		expected = 'Th'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_jan_01_2016
+		m = Day.new(01,01,2016)
+		expected = 'Fr'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_feb_01_2016
+		m = Day.new(02,01,2016)
+		expected = 'Mo'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_feb_01_2017
+		m = Day.new(02,01,2017)
+		expected = 'We'
+		assert_equal expected,m.to_s
+	end
+
 	def test_day_to_s_for_beginning_of_month_july_01_2009
 		m = Day.new(7,01,2009)
 		expected = 'We'
