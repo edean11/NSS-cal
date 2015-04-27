@@ -90,31 +90,14 @@ EOS
 		assert_equal expected, m.find_days_in_month
 	end
 
-	def test_find_leading_spaces_sept_1999
-		m = Month.new(9,1999)
-		expected = "          "
-		assert_equal expected, m.find_opening_spaces_and_break_point[0]
-	end
-
-	def test_find_leading_spaces_jan_2012
-		m = Month.new(1,2012)
-		expected = " "
-		assert_equal expected, m.find_opening_spaces_and_break_point[0]
-	end
-
-	def test_find_break_point_sept_1900
-		m = Month.new(9,1900)
-		expected = 1
-		assert_equal expected, m.find_opening_spaces_and_break_point[1]
-	end
-
 	def test_create_date_numbers_string_oct_1850
 		m = Month.new(10,1850)
 		expected = "       1  2  3  4  5
  6  7  8  9 10 11 12
 13 14 15 16 17 18 19
 20 21 22 23 24 25 26
-27 28 29 30 31"
+27 28 29 30 31
+"
 
 		assert_equal expected, m.create_date_numbers_string
 	end

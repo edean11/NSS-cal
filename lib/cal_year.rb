@@ -22,7 +22,7 @@ class Year
 	def create_last_line_spaces(new_str)
 		str = ""
 		l = (20 - (new_str.lines[new_str.lines.length-1].length-1)).to_i
-		str.ljust(l)
+		str.rjust(l)
 	end
 
 	def month_to_s_translate(m)

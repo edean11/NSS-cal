@@ -12,15 +12,7 @@ class Day
 
 	attr_reader :month,:day,:year
 
-	$day_number_key = [
-		"Sa",
-		"Su",
-		"Mo",
-		"Tu",
-		"We",
-		"Th",
-		"Fr"
-	]
+	$day_number_key = ["Sa","Su","Mo","Tu","We","Th","Fr"]
 
 	def initialize(month,day,year)
 		@month = month.to_i
@@ -47,6 +39,6 @@ class Day
 		k = get_month_year_formula_number[1] % 100
 		j = get_month_year_formula_number[1].to_s[0,2].to_i
 		day_digit = (q + ((13*(m+1))/5) + k + (k/4) + (j/4) + 5*j) % 7
-		return $day_number_key[day_digit]
+		return day_digit
 	end
 end

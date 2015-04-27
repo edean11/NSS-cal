@@ -10,10 +10,11 @@ class Month
 	end
 
 	$translate_month_table = [nil,"January","February","March","April",
-	"May","June","July","August","September","October","November","December"]
-
-	$find_month_day_break_point = {"Su"=>7,"Mo"=>6,"Tu"=>5,
-		"We"=>4,"Th"=>3,"Fr"=>2,"Sa"=>1}
+		"May","June","July","August","September","October","November","December"]
+	#keys to find first day break point and opening spaces
+	#determined by result of Zeller's Congruence found in Day class
+	$find_month_day_break_point = [1,7,6,5,4,3,2]
+	$opening_spaces = [18,0,3,6,9,12,15]
 
 	def translate_month
 		return $translate_month_table[month]
@@ -35,66 +36,29 @@ class Month
 		end
 	end
 
-	# def calculate_opening_spaces(day)
-	# 	spacing_string = ""
-	# 	day_opening_spaces_key = {"Su"=>1,"Mo"=>4,"Tu"=>7,"We"=>10,"Th"=>13,"Fr"=>16,"Sa"=>19}
-	# 	day_opening_spaces_key[day].times do |num|
-	# 		spacing_string << " "
-	# 	end
-	# 	spacing_string
-	# end
-
-	# def find_opening_spaces_and_break_point
-	# 	d = Day.new(month,1,year)
-	# 	day_of_week = d.to_s
-	# 	break_point = $find_month_day_break_point[day_of_week]
-	# 	op_spaces = calculate_opening_spaces(day_of_week)
-	# 	return [op_spaces,break_point]
-	# end
-
-
-	# def create_date_numbers_string
-	# 	string = ""
-	# 	iterator = 1
-	# 	iterator_limit = find_days_in_month
-	# 	new_line_iterator = 1
-	# 	spacesArr = find_opening_spaces_and_break_point
-	# 	op_spaces = spacesArr[0]
-	# 	break_point = spacesArr[1]
-	# 	string << op_spaces
-	# 	until iterator == break_point
-	# 		string << "#{iterator}  "
-	# 		iterator += 1
-	# 	end
-	# 	string << "#{iterator}\n"
-	# 	iterator += 1
-	# 	string << " #{iterator}"
-	# 	iterator += 1
-	# 	new_line_iterator += 1
-	# 	new_line = false
-	# 	until iterator > iterator_limit
-	# 		if new_line == true
-	# 			string << "#{iterator}".rjust(2)
-	# 			new_line = false
-	# 		elsif new_line_iterator % 7 == 0
-	# 			string << "#{iterator}".rjust(3)
-	# 			string << "\n" unless iterator == iterator_limit
-	# 			new_line = true
-	# 		else
-	# 			string << "#{iterator}".rjust(3)
-	# 		end
-	# 		new_line_iterator += 1
-	# 		iterator += 1
-	# 	end
-	# 	string
-	# end
+	def break_numbers_array(day_num)
+		arr = []
+		start_num = $find_month_day_break_point[day_num]
+		5.times do |x|
+			num = start_num + x*7
+			arr.push(num)
+		end
+		arr.push(find_days_in_month())
+	end
 
 	def create_date_numbers_string
 		string = ""
+		d = Day.new(month,1,year)
+		day_of_week = d.to_s
+		num_arr = break_numbers_array(day_of_week)
 		(1..find_days_in_month).each do |num|
-			string << num.to_s.rjust(2) << " "
+			if num_arr.include?(num)
+				string << num.to_s.rjust(2) << "\n"
+			else
+				string << num.to_s.rjust(2) << " "
+			end
 		end
-		string
+		string.prepend(" " * $opening_spaces[day_of_week])
 	end
 
 	def center_month_year
@@ -106,7 +70,6 @@ class Month
 #{center_month_year}
 Su Mo Tu We Th Fr Sa
 #{create_date_numbers_string}
-
 EOS
 	end
 end
