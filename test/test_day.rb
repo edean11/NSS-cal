@@ -15,6 +15,12 @@ class TestDay < Minitest::Test
 		assert_equal expected,m.to_s
 	end
 
+	def test_day_to_s_for_jan_01_2000
+		m = Day.new(01,01,2000)
+		expected = 'Sa'
+		assert_equal expected,m.to_s
+	end
+
 	def test_day_to_s_for_jan_01_2012
 		m = Day.new(01,01,2012)
 		expected = 'Su'
@@ -42,6 +48,12 @@ class TestDay < Minitest::Test
 	def test_day_to_s_for_feb_01_2016
 		m = Day.new(02,01,2016)
 		expected = 'Mo'
+		assert_equal expected,m.to_s
+	end
+
+	def test_day_to_s_for_feb_01_1900
+		m = Day.new(02,01,1900)
+		expected = 'Th'
 		assert_equal expected,m.to_s
 	end
 
