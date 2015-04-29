@@ -21,16 +21,14 @@ class Month
     end
 
     def find_days_in_month
+        y = Year.new(year)
         if month == 4 || month == 6 ||
             month == 9 || month == 11
             return 30
-        elsif month == 2
-            y = Year.new(year)
-            if y.leap?
-                return 29
-            else
-                return 28
-            end
+        elsif month == 2 && y.leap?
+            return 29
+        elsif month == 2 && !y.leap?
+            return 28
         else
             return 31
         end
