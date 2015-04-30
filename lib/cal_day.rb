@@ -12,8 +12,6 @@ class Day
 
     attr_reader :month,:day,:year
 
-    $day_number_key = ["Sa","Su","Mo","Tu","We","Th","Fr"]
-
     def initialize(month,day,year)
         @month = month.to_i
         @day = day.to_i

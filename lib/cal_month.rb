@@ -9,26 +9,24 @@ class Month
         @year = year
     end
 
-    $translate_month_table = [nil,"January","February","March","April",
+    Translate_month_table = [nil,"January","February","March","April",
         "May","June","July","August","September","October","November","December"]
     #keys to find first week break point and opening spaces
     #determined by result of Zeller's Congruence found in Day class
-    $find_month_day_break_point = [1,7,6,5,4,3,2]
-    $opening_spaces = [18,0,3,6,9,12,15]
+    Find_month_day_break_point = [1,7,6,5,4,3,2]
+    Opening_spaces = [18,0,3,6,9,12,15]
 
     def translate_month
-        return $translate_month_table[month]
+        return Translate_month_table[month]
     end
 
     def find_days_in_month
         y = Year.new(year)
-        if month == 4 || month == 6 ||
-            month == 9 || month == 11
+        case month
+        when 4,6,9,11
             return 30
-        elsif month == 2 && y.leap?
-            return 29
-        elsif month == 2 && !y.leap?
-            return 28
+        when 2
+            return y.leap
         else
             return 31
         end
@@ -36,7 +34,7 @@ class Month
 
     def break_numbers_array(day_num)
         arr = []
-        start_num = $find_month_day_break_point[day_num]
+        start_num = Find_month_day_break_point[day_num]
         5.times do |x|
             num = start_num + x*7
             arr.push(num)
@@ -51,12 +49,12 @@ class Month
         num_arr = break_numbers_array(day_of_week)
         (1..find_days_in_month).each do |num|
             if num_arr.include?(num)
-                string << num.to_s.rjust(2) << "\n"
+                string << num.to_s.rjust(2) + "\n"
             else
-                string << num.to_s.rjust(2) << " "
+                string << num.to_s.rjust(2) + " "
             end
         end
-        string.prepend(" " * $opening_spaces[day_of_week])
+        string.prepend(" " * Opening_spaces[day_of_week])
     end
 
     def center_month_year

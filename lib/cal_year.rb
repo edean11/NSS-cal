@@ -5,17 +5,15 @@ class Year
     def initialize(year)
         @year = year.to_i
     end
-    def leap?
-        if year % 4 == 0 && year % 100 == 0 &&
-            year % 400 == 0
-            return true
-        elsif year % 4 == 0 && year % 100 == 0 &&
-            year % 400 != 0
-            return false
-        elsif year % 4 == 0 && year % 100 != 0
-            return true
+    def leap
+        if year.modulo(400).zero?
+            return 29
+        elsif year.modulo(100).zero? && !year.modulo(400).zero?
+            return 28
+        elsif year.modulo(4).zero? && !year.modulo(100).zero?
+            return 29
         else
-            return false
+            return 28
         end
     end
 
@@ -53,7 +51,8 @@ EOS
         m2lines = month2.lines
         m3lines = month3.lines
         month1.each_line.with_index do |line,index|
-            string << line.chomp.ljust(22) << m2lines[index].chomp.ljust(22) << m3lines[index] if index != m2lines.length-1
+            string << line.chomp.ljust(22) << m2lines[index].chomp.ljust(22) if index != m2lines.length-1
+            string << m3lines[index] if index != m2lines.length-1
         end
         string
     end
